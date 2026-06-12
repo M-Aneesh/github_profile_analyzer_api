@@ -8,8 +8,8 @@ const fetchGithubProfile = async (username) =>{
     */
     const [getUserProfile , getUserRepo] = await Promise.all([
         //promise.all() to run 2 requests at once
-         axios.get(`http://api.github.com/users/${username}`),
-         axios.get(`http://api.github.com/users/${username}/repos`)
+         axios.get(`https://api.github.com/users/${username}`),
+         axios.get(`https://api.github.com/users/${username}/repos`)
     ]);
     return{
         // get hold of both request's data
