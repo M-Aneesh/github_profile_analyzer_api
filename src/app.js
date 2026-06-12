@@ -31,6 +31,33 @@ app.get("/profileData/:username", async (req, res) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    project: "GitHub Profile Analyzer API",
+    endpoints: {
+      //not saved in db
+      userProfile: "GET /profileData/:username",
+
+      analyzeProfile: "POST /api/profiles",
+      getAllProfiles: "GET /api/profiles",
+      //Filter profiles [values provided are for example]
+      FilterBylanguage: "GET /api/profiles?language=javascript",
+      FilterByMinFollowers: "GET /api/profiles?minFollowers=10",
+      FilterByPublicRepositories: "GET /api/profiles?minPublicRepo=5",
+      //Sorting
+      SortByFollowers: "GET /api/profiles?sortBy=followers",
+      SortByStars : "GET /api/profiles?sortBy=stars",
+      SortByPublic: "GET /api/profiles?sortBy=public",
+
+
+      getSingleProfile: "GET /api/profiles/:username",
+      deleteProfile: "DELETE /api/profiles/:username"
+
+    }
+  });
+});
+
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
