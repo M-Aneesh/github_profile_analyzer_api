@@ -46,7 +46,8 @@ const startServer = async () => {
     });
 
   } catch (error) {
-    console.error(error.message);
+  console.error("Database Connection Failed");
+  console.error(error);
   }
 };
 
