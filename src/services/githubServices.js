@@ -1,24 +1,35 @@
 import axios from "axios";
+import env from "dotenv";
 
-const fetchGithubProfile = async (username) =>{
+env.config();
+const headers = {
+  Authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
+};
+
+const fetchGithubProfile = async (username) => {
+  const [getUserProfile, getUserRepo] = await Promise.all([
     /* from github rest api 
     under this: https://docs.github.com/en/rest/users/users?apiVersion=2026-03-10#get-a-user--code-samples
     "url": "https://api.github.com/users/octocat",
      "repos_url": "https://api.github.com/users/octocat/repos"
     */
-    const [getUserProfile , getUserRepo] = await Promise.all([
-        //promise.all() to run 2 requests at once
-         axios.get(`https://api.github.com/users/${username}`),
-         axios.get(`https://api.github.com/users/${username}/repos`)
-    ]);
-    return{
-        // get hold of both request's data
-        userProfile : getUserProfile.data,
-        userRepo : getUserRepo.data
-    };
-    };
+    axios.get(
+      `https://api.github.com/users/${username}`,
+      { headers }
+    ),
+    axios.get(
+      `https://api.github.com/users/${username}/repos`,
+      { headers }
+    ),
+  ]);
 
-    export {fetchGithubProfile};
+  return {
+    userProfile: getUserProfile.data,
+    userRepo: getUserRepo.data,
+  };
+};
+
+export { fetchGithubProfile };
 
     
 
